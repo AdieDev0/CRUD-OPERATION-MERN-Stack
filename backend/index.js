@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import express from "express";
-import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import route from "./routes/userRoute.js"; // Add `.js` to the import
+import route from "./routes/userRoute.js";
+import colors from "colors";
 
 // Initialize dotenv
 dotenv.config();
@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
+app.use(express.json()); // Use built-in Express JSON parser
 
 // Environment variables
 const PORT = process.env.PORT || 7000;
@@ -18,14 +18,16 @@ const MONGOURL = process.env.MONGO_URL;
 
 // Connect to MongoDB
 mongoose
-  .connect(MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true }) // Recommended options
+  .connect(MONGOURL)
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log(colors.bgBrightGreen("Connected to MongoDB"));
     app.listen(PORT, () => {
-      console.log(`Server is running on port: ${PORT}`);
+      console.log(colors.bgBrightCyan(`Server is running on port: ${PORT}`));
     });
   })
-  .catch((error) => console.error("MongoDB connection error:", error));
+  .catch((error) => {
+    console.error(colors.bgBrightRed("MongoDB connection error:", error));
+  });
 
 // Define routes
 app.use("/api", route);
