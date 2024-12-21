@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
-import route from "./routes/userRoute.js";
+import route from "./routes/userRoute.js"; 
 import colors from "colors";
 
 // Initialize dotenv
@@ -26,7 +26,7 @@ mongoose
     });
   })
   .catch((error) => {
-    console.error(colors.bgBrightRed("MongoDB connection error:", error));
+    console.error(colors.bgBrightRed(`MongoDB connection error: ${error.message}`));
   });
 
 // Define routes
