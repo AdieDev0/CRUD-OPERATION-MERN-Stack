@@ -3,7 +3,7 @@ import User from "./Components/User";
 
 const App = () => {
   return (
-    <div>
+    <div className="min-w-full min-h-screen bg-blue-200 ">
       <User />
     </div>
   );
