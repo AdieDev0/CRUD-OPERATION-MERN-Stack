@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Pencil, Trash2, UserPlus, Loader2, ChevronDown } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  UserPlus,
+  Loader2,
+  ChevronDown,
+} from "lucide-react";
+import { Link } from "react-router-dom";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -58,10 +65,13 @@ const User = () => {
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
               User Management
             </h1>
-            <button className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            <Link
+              to="/add-user"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
               <UserPlus className="w-5 h-5 mr-2" />
               <span>Add User</span>
-            </button>
+            </Link>
           </div>
         </div>
         <div className="p-4 sm:p-6">
