@@ -23,7 +23,7 @@ const AddUser = () => {
           </div>
           {/* BUTTON */}
           <div>
-            <button>Submit</button>
+            <button className="bg-blue-700 hover:bg-blue-600 px-8 py-2 rounded-xl">Submit</button>
           </div>
         </form>
       </div>
