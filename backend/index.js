@@ -4,16 +4,14 @@ import dotenv from "dotenv";
 import route from "./routes/userRoute.js";
 import colors from "colors";
 import cors from "cors";
+
 // Initialize dotenv
 dotenv.config();
-
-// CORS (NOT WORKING!!!)
-const cors = require("cors");
-app.use(cors());
 
 const app = express();
 
 // Middleware
+app.use(cors()); // Use CORS middleware
 app.use(express.json()); // Use built-in Express JSON parser
 
 // Environment variables
