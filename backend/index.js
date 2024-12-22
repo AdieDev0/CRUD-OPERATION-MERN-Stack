@@ -3,9 +3,13 @@ import express from "express";
 import dotenv from "dotenv";
 import route from "./routes/userRoute.js";
 import colors from "colors";
-
+import cors from "cors";
 // Initialize dotenv
 dotenv.config();
+
+// CORS (NOT WORKING!!!)
+const cors = require("cors");
+app.use(cors());
 
 const app = express();
 
