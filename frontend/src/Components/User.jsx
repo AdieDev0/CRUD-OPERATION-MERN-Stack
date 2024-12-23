@@ -55,10 +55,10 @@ const User = () => {
     <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
       <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
         <header className="p-4 sm:p-6 border-b border-gray-200 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">User Management</h1>
+          <h1 className="text-2xl font-bold text-gray-800 font-Work-Sans">User Management</h1>
           <Link
             to="/add-user"
-            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center px-4 py-2 font-Work-Sans bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Add User
           </Link>
@@ -94,13 +94,13 @@ const User = () => {
                 <table className="w-full border-collapse">
                   <thead>
                     <tr className="bg-gray-100">
-                      <th className="px-4 py-3 hidden md:table-cell">#</th>
-                      <th className="px-4 py-3">Name</th>
-                      <th className="px-4 py-3">Email</th>
-                      <th className="px-4 py-3 hidden lg:table-cell">
+                      <th className="px-4 py-3 hidden md:table-cell font-Work-Sans">#</th>
+                      <th className="px-4 py-3 font-Work-Sans">Name</th>
+                      <th className="px-4 py-3 font-Work-Sans">Email</th>
+                      <th className="px-4 py-3 hidden lg:table-cell font-Work-Sans">
                         Address
                       </th>
-                      <th className="px-4 py-3 text-right">Actions</th>
+                      <th className="px-4 py-3 text-right font-Work-Sans">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -112,12 +112,12 @@ const User = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3, delay: index * 0.1 }}
                       >
-                        <td className="px-4 py-3 hidden md:table-cell">
+                        <td className="px-4 py-3 hidden md:table-cell font-Work-Sans">
                           {index + 1}
                         </td>
-                        <td className="px-4 py-3">{user.name}</td>
-                        <td className="px-4 py-3">{user.email}</td>
-                        <td className="px-4 py-3 hidden lg:table-cell">
+                        <td className="px-4 py-3 font-Work-Sans">{user.name}</td>
+                        <td className="px-4 py-3 font-Work-Sans">{user.email}</td>
+                        <td className="px-4 py-3 hidden lg:table-cell font-Work-Sans">
                           {user.address}
                         </td>
                         <td className="px-4 py-3 text-right">
@@ -125,14 +125,14 @@ const User = () => {
                             <Link
                               to={`/update-user/${user._id}`}
                               aria-label="Edit User"
-                              className="text-white bg-blue-600 hover:bg-blue-400 duration-200 w-20 h-8 flex items-center justify-center text-sm rounded-lg border"
+                              className="text-white font-Work-Sans bg-blue-600 hover:bg-blue-400 duration-200 w-20 h-8 flex items-center justify-center text-sm rounded-lg border"
                             >
                               Edit
                             </Link>
                             <button
                               onClick={() => deleteUser(user._id)}
                               aria-label="Delete User"
-                              className="w-20 h-8 flex items-center justify-center text-red-600 border hover:bg-red-600 hover:text-white border-red-600 duration-200 rounded-lg text-sm"
+                              className="w-20 h-8 flex items-center justify-center font-Work-Sans text-red-600 border hover:bg-red-600 hover:text-white border-red-600 duration-200 rounded-lg text-sm"
                             >
                               Delete
                             </button>
