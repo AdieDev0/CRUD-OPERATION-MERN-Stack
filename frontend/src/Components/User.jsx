@@ -30,9 +30,7 @@ const User = () => {
     try {
       const response = await fetch(
         `http://localhost:7000/api/delete/user/${userId}`,
-        {
-          method: "DELETE",
-        }
+        { method: "DELETE" }
       );
       if (!response.ok) throw new Error("Failed to delete user");
       const result = await response.json();
@@ -46,40 +44,12 @@ const User = () => {
   const toggleRow = (index) => {
     setExpandedRows((prev) => {
       const updatedRows = new Set(prev);
-      updatedRows.has(index) ? updatedRows.delete(index) : updatedRows.add(index);
+      updatedRows.has(index)
+        ? updatedRows.delete(index)
+        : updatedRows.add(index);
       return updatedRows;
     });
   };
-
-  const UserRow = ({ user, index }) => (
-    <motion.tr
-      className="hover:bg-gray-50 transition-colors"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, delay: index * 0.1 }}
-    >
-      <td className="px-4 py-3 hidden md:table-cell">{index + 1}</td>
-      <td className="px-4 py-3 text-gray-900">{user.name}</td>
-      <td className="px-4 py-3">{user.email}</td>
-      <td className="px-4 py-3 hidden lg:table-cell">{user.address}</td>
-      <td className="px-4 py-3 text-right space-x-2">
-        <Link
-          to={`/update-user/${user._id}`}
-          className="text-blue-600 hover:text-blue-800 transition-colors p-1 rounded-full hover:bg-blue-50"
-          aria-label="Edit user"
-        >
-          ✏️
-        </Link>
-        <button
-          onClick={() => deleteUser(user._id)}
-          className="text-red-600 hover:text-red-800 transition-colors p-1 rounded-full hover:bg-red-50"
-          aria-label="Delete user"
-        >
-          🗑️
-        </button>
-      </td>
-    </motion.tr>
-  );
 
   return (
     <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
@@ -98,6 +68,10 @@ const User = () => {
             <div className="flex justify-center items-center py-8">
               <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
             </div>
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-lg text-gray-500">{error}</p>
+            </div>
           ) : users.length === 0 ? (
             <motion.div
               className="flex flex-col items-center justify-center py-10"
@@ -114,23 +88,104 @@ const User = () => {
               </Link>
             </motion.div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse hidden sm:table">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="px-4 py-3 hidden md:table-cell">#</th>
-                    <th className="px-4 py-3">Name</th>
-                    <th className="px-4 py-3">Email</th>
-                    <th className="px-4 py-3 hidden lg:table-cell">Address</th>
-                    <th className="px-4 py-3 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {users.map((user, index) => (
-                    <UserRow key={user._id || index} user={user} index={index} />
-                  ))}
-                </tbody>
-              </table>
+            <div>
+              {/* Table View for Large Screens */}
+              <div className="hidden sm:block overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="px-4 py-3 hidden md:table-cell">#</th>
+                      <th className="px-4 py-3">Name</th>
+                      <th className="px-4 py-3">Email</th>
+                      <th className="px-4 py-3 hidden lg:table-cell">
+                        Address
+                      </th>
+                      <th className="px-4 py-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {users.map((user, index) => (
+                      <motion.tr
+                        key={user._id}
+                        className="hover:bg-gray-50 transition-colors"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.1 }}
+                      >
+                        <td className="px-4 py-3 hidden md:table-cell">
+                          {index + 1}
+                        </td>
+                        <td className="px-4 py-3">{user.name}</td>
+                        <td className="px-4 py-3">{user.email}</td>
+                        <td className="px-4 py-3 hidden lg:table-cell">
+                          {user.address}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <div className="flex justify-end space-x-3">
+                            <Link
+                              to={`/update-user/${user._id}`}
+                              aria-label="Edit User"
+                              className="text-white bg-blue-600 hover:bg-blue-400 duration-200 w-20 h-8 flex items-center justify-center text-sm rounded-lg border"
+                            >
+                              Edit
+                            </Link>
+                            <button
+                              onClick={() => deleteUser(user._id)}
+                              aria-label="Delete User"
+                              className="w-20 h-8 flex items-center justify-center text-red-600 border hover:bg-red-600 hover:text-white border-red-600 duration-200 rounded-lg text-sm"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Card View for Mobile */}
+              <div className="block sm:hidden space-y-4">
+                {users.map((user, index) => (
+                  <motion.div
+                    key={user._id}
+                    className="bg-gray-50 p-4 rounded-lg shadow-sm"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <div className="flex justify-between">
+                      <h3 className="font-medium text-gray-900">{user.name}</h3>
+                      <button
+                        onClick={() => toggleRow(index)}
+                        className="text-blue-600 hover:text-blue-800"
+                      >
+                        {expandedRows.has(index) ? "▲" : "▼"}
+                      </button>
+                    </div>
+                    {expandedRows.has(index) && (
+                      <div className="mt-2 text-sm text-gray-700 space-y-2">
+                        <p>Email: {user.email}</p>
+                        <p>Address: {user.address}</p>
+                        <div className="flex justify-end space-x-2">
+                          <Link
+                            to={`/update-user/${user._id}`}
+                            className="text-white bg-blue-500 border hover:bg-blue-400 duration-200 w-16 h-6 text-center rounded-lg"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            onClick={() => deleteUser(user._id)}
+                            className="w-16 h-6 text-red-600 text-center border hover:text-white hover:bg-red-600 border-red-600 duration-200 rounded-lg"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           )}
         </main>
