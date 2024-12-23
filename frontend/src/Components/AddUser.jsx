@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 const AddUser = () => {
   const initialUserState = {
     name: "",
@@ -23,7 +23,7 @@ const AddUser = () => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:7000/api/user", user);
-      console.log("User created successfully.", response);
+      toast.success(response.data.message, { position: "top-right" });
       navigate("/");
     } catch (error) {
       console.error("There was an error creating the user!", error);
