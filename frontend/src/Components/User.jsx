@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pencil, Trash2, UserPlus, Loader2, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,7 @@ const User = () => {
         const response = await fetch("http://localhost:7000/api/users");
         if (!response.ok) throw new Error("Failed to fetch users");
         const data = await response.json();
-        console.log("Fetched users:", data); // Check the structure of the data
+        console.log("Fetched users:", data);
         setUsers(data);
       } catch (err) {
         setError(err.message);
@@ -26,7 +27,25 @@ const User = () => {
     };
     fetchUsers();
   }, []);
-  
+
+  const deleteUser = async (userId) => {
+    try {
+      const response = await fetch(`http://localhost:7000/api/delete/user/${userId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete user");
+      const result = await response.json();
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+      toast.success(result.message || "User deleted successfully", {
+        position: "top-right",
+      });
+    } catch (err) {
+      toast.error(err.message || "Error deleting user", {
+        position: "top-right",
+      });
+      console.error(err);
+    }
+  };
 
   const toggleRow = (index) => {
     setExpandedRows((prev) => {
@@ -53,6 +72,7 @@ const User = () => {
           <Pencil className="w-4 h-4" />
         </Link>
         <button
+          onClick={() => deleteUser(user._id)}
           className="text-red-600 hover:text-red-800 transition-colors p-1 rounded-full hover:bg-red-50"
           aria-label="Delete user"
         >
@@ -85,11 +105,17 @@ const User = () => {
             <p className="text-sm text-gray-900">{user.address}</p>
           </div>
           <div className="flex justify-end space-x-2">
-            <button className="inline-flex items-center px-3 py-1 text-sm text-blue-600 hover:text-blue-800 transition-colors rounded-md hover:bg-blue-50">
+            <Link
+              to={`/update-user/${user._id}`}
+              className="inline-flex items-center px-3 py-1 text-sm text-blue-600 hover:text-blue-800 transition-colors rounded-md hover:bg-blue-50"
+            >
               <Pencil className="w-4 h-4 mr-1" />
               Edit
-            </button>
-            <button className="inline-flex items-center px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors rounded-md hover:bg-red-50">
+            </Link>
+            <button
+              onClick={() => deleteUser(user._id)}
+              className="inline-flex items-center px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors rounded-md hover:bg-red-50"
+            >
               <Trash2 className="w-4 h-4 mr-1" />
               Delete
             </button>
@@ -134,16 +160,13 @@ const User = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              {/* Desktop Table */}
               <table className="w-full border-collapse hidden sm:table">
                 <thead>
                   <tr className="bg-gray-100">
                     <th className={`${rowStyles} hidden md:table-cell`}>#</th>
                     <th className={rowStyles}>Name</th>
                     <th className={rowStyles}>Email</th>
-                    <th className={`${rowStyles} hidden lg:table-cell`}>
-                      Address
-                    </th>
+                    <th className={`${rowStyles} hidden lg:table-cell`}>Address</th>
                     <th className="px-4 py-3 text-right text-sm font-semibold text-gray-600">
                       Actions
                     </th>
@@ -155,8 +178,6 @@ const User = () => {
                   ))}
                 </tbody>
               </table>
-
-              {/* Mobile Cards */}
               <div className="sm:hidden space-y-4">
                 {users.map((user, index) => (
                   <UserCard key={user._id || index} user={user} index={index} />
