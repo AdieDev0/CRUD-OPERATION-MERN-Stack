@@ -1,12 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddUser = () => {
+  const initialUserState = {
+    name: "",
+    email: "",
+    address: "",
+  };
+
+  const [user, setUser] = useState(initialUserState);
+  const navigate = useNavigate();
+
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+
+    setUser({ ...user, [name]: value });
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:7000/api/user", user);
+      console.log("User created successfully.", response);
+      navigate("/");
+    } catch (error) {
+      console.error("There was an error creating the user!", error);
+    }
+  };
+
   return (
     <div className="p-4 sm:p-6 md:p-8 lg:p-10 bg-gray-50 min-h-screen flex items-center justify-center">
       <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8">
         <h1 className="text-3xl font-bold text-center mb-8">Add New User</h1>
-        <form action="" className="space-y-6">
+        <form action="" className="space-y-6" onSubmit={submitForm}>
           {/* BACK BUTTON */}
           <div className="flex justify-end">
             <Link to="/">
@@ -23,6 +51,8 @@ const AddUser = () => {
             <input
               type="text"
               id="name"
+              name="name" // Added name attribute
+              onChange={inputHandler}
               placeholder="Enter your Name"
               required
               className="border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:border-blue-500"
@@ -36,6 +66,8 @@ const AddUser = () => {
             <input
               type="email"
               id="email"
+              name="email" // Added name attribute
+              onChange={inputHandler}
               placeholder="Enter your Email"
               required
               className="border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:border-blue-500"
@@ -49,6 +81,8 @@ const AddUser = () => {
             <input
               type="text"
               id="address"
+              name="address" // Added name attribute
+              onChange={inputHandler}
               placeholder="Enter your Address"
               required
               className="border-2 border-gray-200 rounded-lg p-3 focus:outline-none focus:border-blue-500"
@@ -56,7 +90,10 @@ const AddUser = () => {
           </div>
           {/* SUBMIT BUTTON */}
           <div className="flex justify-center">
-            <button className="bg-green-600 hover:bg-green-500 text-white px-10 py-3 rounded-full shadow-md transition duration-300">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-500 text-white px-10 py-3 rounded-full shadow-md transition duration-300"
+            >
               Submit
             </button>
           </div>
