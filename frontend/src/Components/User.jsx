@@ -58,7 +58,7 @@ const User = () => {
   }
 
   return (
-    <div className="p-2 sm:p-4 md:p-6 lg:p-8 bg-gray-50 min-h-screen">
+    <div className="p-2 sm:p-4 md:p-6 lg:p-8 bg-gray-50 h-auto">
       <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
         <div className="p-4 sm:p-6 border-b border-gray-200">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
