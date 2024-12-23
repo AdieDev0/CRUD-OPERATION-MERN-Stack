@@ -7,11 +7,12 @@ import UpdateUser from "./Components/UpdateUser";
 const App = () => {
   return (
     <Router>
-      <div className="min-w-full min-h-screen bg-blue-200 p-5 md:p-10 lg:p-20">
+      <div>
         <Routes>
           <Route path="/" element={<User />} />
           <Route path="/add-user" element={<AddUser />} />
-          <Route path="/update-user/:id" element={<UpdateUser />} /> {/* Updated */}
+          <Route path="/update-user/:id" element={<UpdateUser />} />{" "}
+          {/* Updated */}
         </Routes>
       </div>
     </Router>
