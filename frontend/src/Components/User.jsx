@@ -177,14 +177,16 @@ const User = () => {
                             </p>
                           </div>
                           <div className="flex justify-end space-x-2">
-                            <button className="inline-flex items-center px-3 py-1 text-sm text-blue-600 hover:text-blue-800 transition-colors rounded-md hover:bg-blue-50">
+                            {/* EDIT USER */}
+                            <Link className="inline-flex items-center px-3 py-1 text-sm text-blue-600 hover:text-blue-800 transition-colors rounded-md hover:bg-blue-50">
                               <Pencil className="w-4 h-4 mr-1" />
                               Edit
-                            </button>
-                            <button className="inline-flex items-center px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors rounded-md hover:bg-red-50">
+                            </Link>
+                            {/* DELETE USER */}
+                            <Link className="inline-flex items-center px-3 py-1 text-sm text-red-600 hover:text-red-800 transition-colors rounded-md hover:bg-red-50">
                               <Trash2 className="w-4 h-4 mr-1" />
                               Delete
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       )}
