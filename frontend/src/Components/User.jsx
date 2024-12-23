@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Pencil, Trash2, UserPlus, Loader2, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const User = () => {
   const [users, setUsers] = useState([]);
@@ -58,7 +59,12 @@ const User = () => {
   const rowStyles = "px-4 py-3 text-sm text-gray-500";
 
   const UserRow = ({ user, index }) => (
-    <tr className="hover:bg-gray-50 transition-colors">
+    <motion.tr
+      className="hover:bg-gray-50 transition-colors"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+    >
       <td className={`${rowStyles} hidden md:table-cell`}>{index + 1}</td>
       <td className={`${rowStyles} text-gray-900`}>{user.name}</td>
       <td className={rowStyles}>{user.email}</td>
@@ -79,11 +85,16 @@ const User = () => {
           <Trash2 className="w-4 h-4" />
         </button>
       </td>
-    </tr>
+    </motion.tr>
   );
 
   const UserCard = ({ user, index }) => (
-    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+    <motion.div
+      className="bg-white rounded-lg border border-gray-200 overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
+    >
       <div
         className="p-4 flex justify-between items-center cursor-pointer"
         onClick={() => toggleRow(index)}
@@ -122,24 +133,11 @@ const User = () => {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-screen p-4">
-        <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
-          <div className="text-center text-red-500">
-            <p className="text-lg font-semibold">Error loading users</p>
-            <p className="text-sm">{error}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="p-4 bg-gray-50 min-h-screen">
+    <div className="p-4 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
       <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg">
         <header className="p-4 sm:p-6 border-b border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
@@ -158,6 +156,21 @@ const User = () => {
             <div className="flex justify-center items-center py-8">
               <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
             </div>
+          ) : users.length === 0 ? (
+            <motion.div
+              className="flex flex-col items-center justify-center py-10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="text-lg text-gray-500">No users found.</p>
+              <Link
+                to="/add-user"
+                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Create User
+              </Link>
+            </motion.div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full border-collapse hidden sm:table">
