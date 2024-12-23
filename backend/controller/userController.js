@@ -20,6 +20,7 @@ export const create = async (req, res) => {
     const newUser = new User({ name, email, address });
     const savedData = await newUser.save();
     // res.status(200).json(savedData);
+    // TOAST
     res.status(200).json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ errorMessage: error.message });
@@ -65,7 +66,9 @@ export const update = async (req, res) => {
     const updateData = await User.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.status(200).json(updateData);
+    // res.status(200).json(updateData);
+    // TOAST
+    res.status(200).json({ message: "User Updated successfully" });
   } catch (error) {
     return res.status(404).json({ message: "User not found" });
   }
