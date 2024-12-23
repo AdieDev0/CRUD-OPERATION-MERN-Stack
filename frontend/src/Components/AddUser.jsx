@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";  // Import framer-motion
 
 const AddUser = () => {
   const initialUserState = {
@@ -46,10 +47,20 @@ const AddUser = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 lg:p-10 bg-gray-50 min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8">
+    <motion.div 
+      className="p-4 sm:p-6 md:p-8 lg:p-10 bg-gray-50 min-h-screen flex items-center justify-center"
+      initial={{ opacity: 0 }}  // Animation starts with 0 opacity
+      animate={{ opacity: 1 }}  // Animates to full opacity
+      transition={{ duration: 0.5 }} // Duration of the transition
+    >
+      <motion.div 
+        className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8"
+        initial={{ y: -50 }}  // Starts off-screen
+        animate={{ y: 0 }}    // Animates to its natural position
+        transition={{ duration: 0.5 }}  // Duration of the transition
+      >
         {/* Header */}
-        <h1 className="text-2xl font-bold text-center mb-6">Add New User</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 font-Work-Sans">Add New User</h1>
 
         {/* Form */}
         <form className="space-y-6" onSubmit={submitForm}>
@@ -58,7 +69,7 @@ const AddUser = () => {
             <Link to="/">
               <button
                 type="button"
-                className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md transition duration-300"
+                className="bg-blue-600 hover:bg-blue-500 text-white font-Work-Sans px-4 py-2 rounded-lg shadow-md transition duration-300"
               >
                 Back
               </button>
@@ -66,8 +77,13 @@ const AddUser = () => {
           </div>
 
           {/* Name Field */}
-          <div className="flex flex-col">
-            <label htmlFor="name" className="font-medium text-sm mb-1">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0 }}  // Starts invisible
+            animate={{ opacity: 1 }}  // Becomes visible
+            transition={{ duration: 0.3, delay: 0.1 }}  // Slight delay for a staggered effect
+          >
+            <label htmlFor="name" className="font-medium text-sm mb-1 font-Work-Sans">
               Name:
             </label>
             <input
@@ -78,13 +94,18 @@ const AddUser = () => {
               onChange={inputHandler}
               placeholder="Enter your name"
               required
-              className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
+              className="font-Work-Sans border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
-          </div>
+          </motion.div>
 
           {/* Email Field */}
-          <div className="flex flex-col">
-            <label htmlFor="email" className="font-medium text-sm mb-1">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            <label htmlFor="email" className="font-medium text-sm mb-1 font-Work-Sans">
               Email:
             </label>
             <input
@@ -95,13 +116,18 @@ const AddUser = () => {
               onChange={inputHandler}
               placeholder="Enter your email"
               required
-              className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
+              className="font-Work-Sans border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
-          </div>
+          </motion.div>
 
           {/* Address Field */}
-          <div className="flex flex-col">
-            <label htmlFor="address" className="font-medium text-sm mb-1">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
+            <label htmlFor="address" className="font-medium text-sm mb-1 font-Work-Sans">
               Address:
             </label>
             <input
@@ -112,25 +138,30 @@ const AddUser = () => {
               onChange={inputHandler}
               placeholder="Enter your address"
               required
-              className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
+              className="font-Work-Sans border border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-400 focus:ring focus:ring-blue-200"
             />
-          </div>
+          </motion.div>
 
           {/* Submit Button */}
-          <div className="flex justify-center">
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <button
               type="submit"
               disabled={loading}
               className={`${
-                loading ? "bg-green-400" : "bg-green-500 hover:bg-green-400"
-              } text-white px-8 py-2 rounded-lg shadow-md transition duration-300`}
+                loading ? "bg-green-400" : "bg-green-600 hover:bg-green-500"
+              } text-white px-8 py-2 rounded-lg shadow-md transition duration-300 font-Work-Sans`}
             >
               {loading ? "Submitting..." : "Submit"}
             </button>
-          </div>
+          </motion.div>
         </form>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
