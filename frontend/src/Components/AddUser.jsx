@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
+// ADD USER
 const AddUser = () => {
   const initialUserState = {
     name: "",
@@ -12,6 +14,7 @@ const AddUser = () => {
   const [user, setUser] = useState(initialUserState);
   const navigate = useNavigate();
 
+  // INPUT DATA
   const inputHandler = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -19,6 +22,7 @@ const AddUser = () => {
     setUser({ ...user, [name]: value });
   };
 
+  // SUBMIT FORM AXIOS
   const submitForm = async (e) => {
     e.preventDefault();
     try {
