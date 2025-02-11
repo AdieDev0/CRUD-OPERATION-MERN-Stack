@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { motion } from "framer-motion";  // Import framer-motion
+import { motion } from "framer-motion"; // Import framer-motion
 
 const AddUser = () => {
   const initialUserState = {
@@ -47,20 +47,22 @@ const AddUser = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="p-4 sm:p-6 md:p-8 lg:p-10 bg-gray-50 min-h-screen flex items-center justify-center"
-      initial={{ opacity: 0 }}  // Animation starts with 0 opacity
-      animate={{ opacity: 1 }}  // Animates to full opacity
+      initial={{ opacity: 0 }} // Animation starts with 0 opacity
+      animate={{ opacity: 1 }} // Animates to full opacity
       transition={{ duration: 0.5 }} // Duration of the transition
     >
-      <motion.div 
+      <motion.div
         className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-xl p-8"
-        initial={{ y: -50 }}  // Starts off-screen
-        animate={{ y: 0 }}    // Animates to its natural position
-        transition={{ duration: 0.5 }}  // Duration of the transition
+        initial={{ y: -50 }} // Starts off-screen
+        animate={{ y: 0 }} // Animates to its natural position
+        transition={{ duration: 0.5 }} // Duration of the transition
       >
         {/* Header */}
-        <h1 className="text-2xl font-bold text-center mb-6 font-Work-Sans">Add New User</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 font-Work-Sans">
+          Add New User
+        </h1>
 
         {/* Form */}
         <form className="space-y-6" onSubmit={submitForm}>
@@ -79,11 +81,14 @@ const AddUser = () => {
           {/* Name Field */}
           <motion.div
             className="flex flex-col"
-            initial={{ opacity: 0 }}  // Starts invisible
-            animate={{ opacity: 1 }}  // Becomes visible
-            transition={{ duration: 0.3, delay: 0.1 }}  // Slight delay for a staggered effect
+            initial={{ opacity: 0 }} // Starts invisible
+            animate={{ opacity: 1 }} // Becomes visible
+            transition={{ duration: 0.3, delay: 0.1 }} // Slight delay for a staggered effect
           >
-            <label htmlFor="name" className="font-medium text-sm mb-1 font-Work-Sans">
+            <label
+              htmlFor="name"
+              className="font-medium text-sm mb-1 font-Work-Sans"
+            >
               Name:
             </label>
             <input
@@ -105,7 +110,10 @@ const AddUser = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.2 }}
           >
-            <label htmlFor="email" className="font-medium text-sm mb-1 font-Work-Sans">
+            <label
+              htmlFor="email"
+              className="font-medium text-sm mb-1 font-Work-Sans"
+            >
               Email:
             </label>
             <input
@@ -127,7 +135,10 @@ const AddUser = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: 0.3 }}
           >
-            <label htmlFor="address" className="font-medium text-sm mb-1 font-Work-Sans">
+            <label
+              htmlFor="address"
+              className="font-medium text-sm mb-1 font-Work-Sans"
+            >
               Address:
             </label>
             <input
